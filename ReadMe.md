@@ -1,15 +1,16 @@
-CMPE 321 PROJECT 3 ReadME
+# CMPE 321 PROJECT 3 ReadME
+This project is done by me and <a href="https://github.com/faruknane">Akif Faruk Nane</a> for our course CMPE 321.
 
 Before you start, make sure that you are in the root directory (if you can seee manage.py then you are in the root directory.).
 To start server, type "python manage.py runserver" to your cli. You will see couple lines flowing on your terminal.
 You should see this line: "Starting development server at http://127.0.0.1:8000/" You can hold Ctrl and click this url
 or just type it to your browser yourself. you will see a login page.
 
-###Login Page###
+## Login Page
 In order to log in, you need to type your username, password and you need to select your user type and click Login button.
 You might notice there is another button, which is Flush Session. You can use it to log out.
 
-###User Page###
+## User Page
 If you see a line like "Welcome user username/password/institue!" on top of the page then congrats, you succesfully logged in as a user.
 
 After greeting line, you will notice 3 buttons next to each other. 
@@ -33,7 +34,7 @@ At the bottom, you will see this line:"Maybe matching drugs or protein?" and 2 b
 - Second button will show you each drugbank id with uniprot ids that bind those drugs.
 
 
-###DBManager Page###
+# DBManager Page
 If you see a line like "Welcome db manager username/password!" on top of the page then congrats, you succesfully logged in as a db manager.
 
 After greeting line, you will see couple lists that has information about database.
