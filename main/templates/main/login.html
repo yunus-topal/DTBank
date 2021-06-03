@@ -1,0 +1,31 @@
+<html>
+<head>
+    <title>Deneme title</title>
+</head>
+
+<body>
+    <form method="POST" action="/">
+        {% csrf_token %}
+        <label>Username:</label>
+        <input name="username"></input>
+        <br>
+        <label>Password:</label>
+        <input name="password"></input>
+        <br>
+        <label>Type:</label>
+        <select name="usertype">
+            <option value="user">User</option>
+            <option value="dbmanager">DBManager</option>
+          </select>
+        <br>
+        <button type="submit" name="login">Login</button>
+    </form>
+
+    
+    <form method="POST" action="/">
+        {% csrf_token %}
+        <button type="submit" name="flush">Flush Session</button>
+    </form>
+
+</body>
+</html>

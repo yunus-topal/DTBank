@@ -1,0 +1,148 @@
+<html>
+<head>
+    <title>Deneme title</title>
+</head>
+
+<body>
+    <p>Welcome db manager {{username}} / {{password}}!</p>
+    
+    <p>{{TextMessage}}</p>
+    <p>Database Manager:</p>
+    <ul>
+        <li>username, password</li>
+        {% for item in dbmanagertable %}
+            <li>{{item}}</li>
+        {% endfor %}
+    </ul>
+
+    <p>User:</p>
+    <ul>
+        <li>username, password, institute, author_name</li>
+        {% for item in usertable %}
+            <li>{{item}}</li>
+        {% endfor %}
+    </ul>
+
+    <form method="POST" action="/dbmanagerpage">
+        {% csrf_token %}
+        <label>Username:</label>
+        <input name="username"></input>
+        <br>
+        <label>Password:</label>
+        <input name="password"></input>
+        <br>
+        <label>Institute:</label>
+        <input name="institute"></input>
+        <br>
+        <label>Author Name:</label>
+        <input name="author_name"></input>
+        <br>
+        <button name="type" value="adduser">Add User Page</button>
+    </form>
+
+    <p>DrugBank:</p>
+    <ul>
+        <li> drug_name, drugbank_id, description, interaction</li>
+        {% for item in drugbanktable %}
+            <li>{{item}}</li>
+        {% endfor %}
+    </ul>
+
+    <form method="POST" action="/dbmanagerpage">
+        {% csrf_token %}
+        <label>DrugBank ID:</label>
+        <input name="drugbank_id"></input>
+        <br>
+        <button name="type" value="deletedrug">Delete Drug</button>
+    </form>
+
+    <p>BindingDB:</p>
+    <ul>
+        <li> reaction_id, measure, affinity, target_prot_name, smiles, drugbank_id, uniprot_id, doi, usernames, institutions, authors </li>
+        {% for item in bindingdbtable %}
+            <li>{{item}}</li>
+        {% endfor %}
+    </ul>
+
+    <form method="POST" action="/dbmanagerpage">
+        {% csrf_token %}
+        <label>Reation ID:</label>
+        <input name="reaction_id"></input>
+        <br>
+        <label>Affinity:</label>
+        <input name="affinity"></input>
+        <br>
+        <button name="type" value="affinityupdate">Update Affinity</button>
+    </form>
+    
+    <p>UniProt:</p>
+    <ul>
+        <li> uniprot_id, sequence </li>
+        {% for item in uniprottable %}
+            <li>{{item}}</li>
+        {% endfor %}
+    </ul>
+
+    <form method="POST" action="/dbmanagerpage">
+        {% csrf_token %}
+        <label>UniProt ID:</label>
+        <input name="uniprot_id"></input>
+        <br>
+        <button name="type" value="deleteuniprot">Delete UniProt</button>
+    </form>
+
+    <p>Institution Scores:</p>
+    <ul>
+        <li> score, inst_name </li>
+        {% for item in instscores %}
+            <li>{{item}}</li>
+        {% endfor %}
+    </ul>
+
+    <p>Contributors:</p>
+    <ul>
+        <li> doi, username, inst_name </li>
+        {% for item in authorlisttable %}
+            <li>{{item}}</li>
+        {% endfor %}
+    </ul>
+
+    <form method="POST" action="/dbmanagerpage">
+        {% csrf_token %}
+        <label>Doi:</label>
+        <input name="doi"></input>
+        <br>
+        <label>Username:</label>
+        <input name="username"></input>
+        <br>
+        <label>Institute:</label>
+        <input name="inst_name"></input>
+        <br>
+        <button name="type" value="addcontrib">Add Contributor</button>
+    </form>
+
+    <form method="POST" action="/dbmanagerpage">
+        {% csrf_token %}
+        <label>Doi:</label>
+        <input name="doi"></input>
+        <br>
+        <label>Username:</label>
+        <input name="username"></input>
+        <br>
+        <label>Institute:</label>
+        <input name="inst_name"></input>
+        <br>
+        <button name="type" value="deletecontrib">Delete Contributor</button>
+    </form>
+
+    <p>SIDER:</p>
+    <ul>
+        <li> umls_cui, drugbank_id, side_effect </li>
+        {% for item in sidertable %}
+            <li>{{item}}</li>
+        {% endfor %}
+    </ul>
+
+    
+</body>
+</html>

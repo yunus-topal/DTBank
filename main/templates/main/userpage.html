@@ -1,0 +1,84 @@
+<html>
+<head>
+    <title>Deneme title</title>
+</head>
+
+<body>
+    <p>Welcome user {{username}} / {{password}} / {{institute}}!</p>
+    <p>What do you want to know?</p>
+
+    <form method="GET" action="/basicQuestions">
+        <button type="submit" name="basicq" value="separate">Separately view</button>
+        <button type="submit" name="basicq" value="doi">DOI's and contributors</button>
+        <button type="submit" name="basicq" value="points">calculate points!</button>
+    </form>
+
+    <p>Maybe something more specific?</p>
+    <form method="GET" action="/specificQuestions">
+        <label>All interactions of a drug:</label>
+        <input name="drug_interact"></input>
+        <button type="submit" name="specificq" value="interaction">Search me!</button>
+        <br>
+
+        <label>All side effects of a drug:</label>
+        <input name="drug_effect"></input>
+        <button type="submit" name="specificq" value="side_effect">Search me!</button>
+        <br>
+
+        <label>All interacting targets of a drug:</label>
+        <input name="drug_target"></input>
+        <button type="submit" name="specificq" value="target_name">Search me!</button>
+        <br>
+
+        <label>All interacting drugs of a protein:</label>
+        <input name="prot_drug"></input>
+        <button type="submit" name="specificq" value="drug_ids">Search me!</button>
+        <br>
+
+        <label>All drugs that have a specific side effect:</label>
+        <input name="drug_effect_2"></input>
+        <button type="submit" name="specificq" value="side_effect_2">Search me!</button>
+        <br>
+
+        <label>All drugs that have a specific keyword in their description:</label>
+        <input name="drug_keyword"></input>
+        <button type="submit" name="specificq" value="keyword_search">Search me!</button>
+        <br>
+
+        <label>drug(s) with the least amount of side effects that interact with a specific protein.:</label>
+        <input name="drug_last"></input>
+        <button type="submit" name="specificq" value="drug_last_v">Search me!</button>
+        <br>
+
+        <label>filter interacting targets of a specific drug considering the selected measurement type and the range of the affinity values:</label>
+        <br>
+        <label>drug id</label>
+        <input name ="stored_4"></input>
+        <label>type</label>
+        <input name="stored_1"></input>
+        <label>min</label>
+        <input name="stored_2"></input>
+        <label>max</label>
+        <input name="stored_3"></input>
+
+        <button type="submit" name="specificq" value="stored_v">Search me!</button>
+        <br>
+
+
+    </form>
+
+    <p>Maybe matching drugs or proteins?</p>
+
+    <form method="GET" action="/matchingQuestions">
+        <label>All drugs that effect the same protein:</label>
+        <button type="submit" name="matchingq" value="side_effect_3">Search me!</button>
+        <br>
+
+        <label>All proteins that effect the same drug:</label>
+        <button type="submit" name="matchingq" value="side_effect_4">Search me!</button>
+        <br>
+
+    </form>
+
+</body>
+</html>
