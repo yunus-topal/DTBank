@@ -1,3 +1,6 @@
+# DISCLAIMER
+I used Microsoft SQL Server for this project and because of that, this project will not work on your computer. You need to change pyodbc.connect() parameters inside DTBank/main/urls.py
+
 # CMPE 321 PROJECT 3 ReadME
 This project is done by me and <a href="https://github.com/faruknane">Akif Faruk Nane</a> for our course CMPE 321.
 
