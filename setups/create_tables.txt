@@ -1,0 +1,77 @@
+-- create tables
+
+CREATE TABLE "UniProt" (
+	"uniprot_id"	nvarchar(40) NOT NULL,
+	"sequence"	nvarchar(MAX)NOT NULL,
+	PRIMARY KEY("uniprot_id")
+);
+
+CREATE TABLE "User" (
+	"username"	nvarchar(40) NOT NULL,
+	"password"	nvarchar(MAX)NOT NULL,
+	"institute"	nvarchar(40) NOT NULL,
+	"author_name"	nvarchar(40) NOT NULL,
+	PRIMARY KEY("username","institute")
+);
+
+
+CREATE TABLE "DrugBank" (
+	"drug_name"	nvarchar(MAX)NOT NULL,
+	"drugbank_id"	nvarchar(40) NOT NULL,
+	"description"	nvarchar(MAX)NOT NULL,
+	"interaction"	nvarchar(MAX)NOT NULL,
+	PRIMARY KEY("drugbank_id")
+);
+
+CREATE TABLE "Database_Manager" (
+	"username"	nvarchar(40) NOT NULL,
+	"password"	nvarchar(MAX)NOT NULL,
+	PRIMARY KEY("username")
+);
+
+CREATE TABLE "SIDER" (
+	"umls_cui"	nvarchar(40) NOT NULL,
+	"drugbank_id"	nvarchar(40) NOT NULL,
+	"side_effect_name"	nvarchar(MAX)NOT NULL,
+	FOREIGN KEY("drugbank_id") REFERENCES "DrugBank"("drugbank_id") ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE "Doi" (
+	"doi" nvarchar(254) not null,
+	
+	PRIMARY KEY("doi")
+)
+
+
+
+CREATE TABLE "AuthorList" (
+	"doi" nvarchar(254) not null,
+	"username"	nvarchar(40) NOT NULL,
+	"inst_name"	nvarchar(40) NOT NULL,
+	PRIMARY KEY("doi","username","inst_name"),
+	FOREIGN KEY("username","inst_name") REFERENCES "User"("username","institute") ON DELETE CASCADE,
+	FOREIGN KEY("doi") REFERENCES "Doi"("doi") on delete cascade on update cascade
+)
+
+
+
+
+
+CREATE TABLE "BindingDB" (
+    "reaction_id"    nvarchar(40) NOT NULL,
+    "doi"    nvarchar(254) NOT NULL,
+    "measure"    nvarchar(MAX)NOT NULL,
+    "affinity"    REAL NOT NULL,
+    "target_prot_name"    nvarchar(MAX)NOT NULL,
+    "smiles"    nvarchar(MAX)NOT NULL,
+    "drugbank_id"    nvarchar(40) NOT NULL,
+    "uniprot_id"    nvarchar(40) NOT NULL,
+    PRIMARY KEY("reaction_id"),
+    FOREIGN KEY("uniprot_id") REFERENCES "UniProt"("uniprot_id") ON DELETE CASCADE,
+    FOREIGN KEY("drugbank_id") REFERENCES "DrugBank"("drugbank_id") ON DELETE CASCADE,
+    FOREIGN KEY("doi") REFERENCES "Doi"("doi") ON DELETE CASCADE
+);
+
+
+

@@ -1,0 +1,9 @@
+-- db max 5 entities
+CREATE TRIGGER limitation
+ON Database_Manager
+AFTER INSERT
+AS
+BEGIN
+	IF (Select COUNT(*) from Database_Manager) > 5 
+			RAISERROR ('Error MAX 5 DATABASE MANAGER',16, 1);
+END;

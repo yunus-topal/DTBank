@@ -1,0 +1,10 @@
+CREATE PROC filter @type varchar(40), @minvalue real, @maxvalue real
+AS
+
+SELECT drugbank_id, '[' +STRING_AGG(uniprot_id, ',') + ']' as uniprot_ids, 
+'[' +STRING_AGG(measure, ',') + ']' as measures , '[' +STRING_AGG(affinity, ',') + ']' as affinities 
+  FROM BindingDB WHERE affinity >= @minvalue AND affinity <= @maxvalue AND measure = @type  group by drugbank_id
+
+GO
+
+EXEC filter @type = 'IC50', @minvalue = 10000, @maxvalue = 200000;

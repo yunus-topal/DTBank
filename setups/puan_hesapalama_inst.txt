@@ -1,0 +1,33 @@
+
+
+CREATE FUNCTION calculate_contrib_score ()
+RETURNS TABLE
+AS
+
+RETURN(Select SUM(a.puan_inst)+ SUM(a.puan_author) as puan_total, a.inst_name from (
+Select 5 as puan_inst, COUNT(*)*2 as puan_author, doi, inst_name 
+from "AuthorList" group by doi,inst_name) a
+group by a.inst_name);
+
+--SELECT * FROM calculate_contrib_score() order by puan_total DESC;
+
+
+---------------------------------------------
+
+CREATE PROC calculate_points
+AS
+SELECT COUNT(x.inst_name)*2 + 5 as number, x.inst_name FROM
+(SELECT inst_name, author_name, username FROM DB_Inst_Relation group by inst_name, author_name, username) as x group by x.inst_name
+
+UNION 
+
+(SELECT '0' as number, institute  FROM "User" 
+where 
+(Select COunt(db.inst_name) from DB_Inst_Relation as db 
+where db.inst_name = "User".institute
+) = 0
+)
+
+ORDER BY number DESC
+
+GO

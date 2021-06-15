@@ -1,0 +1,32 @@
+CREATE PROC separate 
+AS
+
+
+SET NOCOUNT ON
+
+
+DECLARE @dummyTABLE  TABLE(drugbank_id nvarchar(40), drug_name nvarchar(max), "description" nvarchar(max), side_effect_names nvarchar(max));
+
+INSERT INTO @dummyTABLE SELECT * FROM (
+(SELECT  d.drugbank_id,d.drug_name, d."description", '[' + STRING_AGG(s.side_effect_name, ',') + ']' as side_effect_names FROM DrugBank as d
+INNER JOIN 
+SIDER as s
+on s.drugbank_id = d.drugbank_id group by d.drugbank_id, d.drug_name, d.description)
+UNION
+SELECT d.drugbank_id , d.drug_name, d."description", '[]' as side_effect_names FROM DrugBank as d where 
+(SELECT COUNT(SIDER.drugbank_id) FROM SIDER where d.drugbank_id = SIDER.drugbank_id) = 0) as a3;
+
+
+SELECT aa.drugbank_id, aa.drug_name, b.smiles, aa.description, '[' + STRING_AGG(b.target_prot_name,',') + ']' AS target_names, aa.side_effect_names FROM 
+	@dummyTABLE as aa
+INNER JOIN BindingDB as b
+on  aa.drugbank_id = b.drugbank_id 
+group by aa.drugbank_id, aa.drug_name, b.smiles, aa.description, aa.side_effect_names
+
+UNION 
+SELECT drugbank_id, drug_name, '' as smiles, "description", '[]' as target_names, side_effect_names FROM @dummyTABLE as dt where 
+(SELECT COUNT(BindingDB.drugbank_id) FROM BindingDB where dt.drugbank_id = BindingDB.drugbank_id
+) = 0;
+
+GO
+

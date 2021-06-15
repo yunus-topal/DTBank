@@ -1,0 +1,29 @@
+CREATE PROC leastSideEffects @protein varchar(40)
+AS
+
+
+SELECT db.drugbank_id, db.drug_name FROM DrugBank as db
+INNER JOIN
+(
+SELECT x2.drugbank_id FROM 
+(SELECT MIN(x.total) as lowest FROM (SELECT s.drugbank_id, count(s.drugbank_id) as total FROM 
+SIDER AS s INNER JOIN 
+(SELECT "drugbank_id" FROM  BindingDB WHERE "uniprot_id" = @protein) as d
+ON d.drugbank_id = s.drugbank_id group by s.drugbank_id) as x) AS x3
+
+JOIN 
+
+(SELECT s2.drugbank_id, count(s2.drugbank_id) as total FROM 
+SIDER AS s2 INNER JOIN 
+(SELECT "drugbank_id" FROM  BindingDB WHERE "uniprot_id" = @protein) as d2
+ON d2.drugbank_id = s2.drugbank_id group by s2.drugbank_id) AS x2
+ON x3.lowest = x2.total) as db2
+
+on db.drugbank_id = db2.drugbank_id
+GO
+
+
+
+
+
+EXEC leastSideEffects @protein = 'uni2';

@@ -1,0 +1,19 @@
+-- delete the drug interaction in other lists
+CREATE TRIGGER drug_interaction_delete
+ON DrugBank
+AFTER DELETE 
+AS
+BEGIN
+  UPDATE DrugBank
+	SET interaction = replace(interaction,'''' + (SELECT deleted.drugbank_id FROM deleted) + ''',','')
+	WHERE interaction LIKE '%''' + (SELECT deleted.drugbank_id FROM deleted)  + '''%';
+	
+		UPDATE DrugBank
+	SET interaction = replace(interaction,','''  + (SELECT deleted.drugbank_id FROM deleted) + '''','')
+	WHERE interaction LIKE '%''' + (SELECT deleted.drugbank_id FROM deleted) + '''%';
+
+	UPDATE DrugBank
+	SET interaction = replace(interaction,''''  + (SELECT deleted.drugbank_id FROM deleted) + '''','')
+	WHERE interaction = '[''' + (SELECT deleted.drugbank_id FROM deleted) + ''']';
+
+END;
